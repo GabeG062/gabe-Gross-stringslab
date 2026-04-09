@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic.CompilerServices;
 
 public class Program
 {
@@ -41,18 +42,12 @@ public class Program
         foreach (char c in input)
             if (Char.IsPunctuation(c))
                 pCount++;
-        Console.WriteLine("Puncutation count: " + pCount);
-
-        // find the index of the first vowel in a string
-        // see the method IsVowel below
-        int vIndex = -1;
+        Console.WriteLine("Punctuation count: " + pCount);
+        
         // a string has a Length property  - just like an array
-        for (int i = 0; i < input.Length && vIndex == -1; i++)
-        {
-            char c = input[i];
-            if (IsVowel(c))
-                vIndex = i;
-        }
+
+        //index of the first vowel
+        int vIndex = IndexOfFirstVowel(input);
         Console.WriteLine("The index of the first vowel is: " + vIndex);
 
         // create an array of strings from a string.  Default delimiter is white space.
@@ -61,7 +56,7 @@ public class Program
             Console.WriteLine(word);
 
         string pig1 = PigLatin1(words[0]);
-        Console.WriteLine("The word {0} in pig latin is: {1}", words[0], pig1);
+        Console.WriteLine($"The word {words[0]} in pig latin is: {pig1}");
 
         string pig2 = PigLatin2(words[0]);
         Console.WriteLine("The word {0} in pig latin is: {1}", words[0], pig2);
@@ -81,26 +76,78 @@ public class Program
         Console.WriteLine("Darn!  z should be translated to a");
     }
 
-    // I'll do this with you in a screen cast
+    // I'll do this with you in a screencast
+    //Done
     static bool IsVowel(char c)
     {
+        string vowels = "aeiouAEIOU";
+        for (int i = 0; i < vowels.Length; i++)
+        {
+            if (vowels[i] == c)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
-    // I'll do this with you in a screen cast
+    // I'll do this with you in a screencast
+    //Done
     static int IndexOfFirstVowel(string s)
     {
-        int vIndex = -1;
-        return vIndex;
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (IsVowel(s[i]))
+                return i;
+        }
+        return -1;
     }
 
-    // I'll do this in the screen cast
+    //Punctuation method using built in C# check
+
+    static bool IsPunctuation(char c)
+    {
+        return char.IsPunctuation(c);
+    }
+    // I'll do this in the screencast
+    //Done
     static string PigLatin1(string s)
     {
-        return s;
+        string punch = "";
+        string temp = "";
+
+        foreach (char c in s)
+        {
+            if (IsPunctuation(c))
+                punch += c;
+            else 
+                temp += c;
+        }
+        s = temp;
+
+        if (string.IsNullOrEmpty(s))
+            return punch;
+        
+        string pigString = "";
+
+        int i = IndexOfFirstVowel(s);
+
+        if (IsVowel(s[0]) && s[0]!= 'y')
+        {
+            pigString = s + "yay";
+        }
+        else if (i > 0)
+        {
+            pigString = s[i..] + s[..i] + "ay"; 
+        }
+        else
+        {
+            pigString = s + "ay";
+        }
+        return pigString + punch;
     }
 
-    // I'll do this with you in a screen cast
+    // I'll do this with you in a screencast
     static string PigLatin2(string s)
     {
         return s;
