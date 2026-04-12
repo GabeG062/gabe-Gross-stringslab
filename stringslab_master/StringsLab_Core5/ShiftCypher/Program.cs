@@ -6,24 +6,84 @@ namespace ShiftCypher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please enter a word or phrase.  Press the ENTER key when you're done.");
+            Console.WriteLine("Please enter a word or phrase, do NOT enter any numbers. Press the ENTER key when you're done.");
             string input = Console.ReadLine();
             
             string[] words = input.Split();
-            foreach (string word in words)
-                Console.WriteLine(word);
             
             Random rnd = new Random();
-            int shift = rnd.Next(-10, 10);
+            int shift = rnd.Next(-10, 11);
             Console.WriteLine("Shift is " + shift);
             
-            string encodedWord = Coder(words[0]);
-            Console.WriteLine($"the encoded version of {words[0]} with a shift of {shift} is {encodedWord}");
+            string encodedWord = Coder(words, shift);
+            Console.WriteLine($"the encoded version of {input} with a shift of {shift} is {encodedWord}");
         }
 
-        static string Coder(string s)
+        static bool IsPunctuation(char c)
         {
-            return "asdf";
+            return char.IsPunctuation(c);
+        }
+        static string Coder(string[] words, int shift)
+        {
+            char[] originalLetters = new char[words.Length];
+            char letter = ' ';
+            int asciiValue = 0;
+            int[] asciiValues = new int[words.Length];
+            
+            
+            //this combines the string into one singular block
+            string combinedSentence = string.Join("", words);
+            
+            originalLetters = combinedSentence.ToCharArray();
+            asciiValues = new int[originalLetters.Length];
+            
+
+            //this for loop converts the character array into an int array with the ASCII values
+            for (int i = 0; i < originalLetters.Length; i++)
+            {
+                letter = originalLetters[i];
+                asciiValue = (int)letter;
+                asciiValues[i] = asciiValue;
+            }
+            
+            //this for loop shifts the contents of the ASCII array by a random number between -10 and 10 in the Uppercase
+            for (int i = 0; i < asciiValues.Length; i++)
+            {
+                int[] asciiOriginal = (int[])asciiValues.Clone();
+                asciiValues[i] += shift;
+                if (asciiOriginal[i] >= 65 && asciiOriginal[i] <= 90)
+                {
+                    if (asciiValues[i] < 65)
+                    {
+                        asciiValues[i] += 26;
+                    }
+                    else if (asciiValues[i] > 90)
+                    {
+                        asciiValues[i] -= 26;
+                    }
+                }
+                else if (asciiOriginal[i] >= 97 && asciiOriginal[i] <= 122)
+                {
+                    if (asciiValues[i] < 97)
+                    {
+                        asciiValues[i] += 26;
+                    }
+                    else if (asciiValues[i] > 122)
+                    {
+                        asciiValues[i] -= 26;
+                    }
+                }
+            }
+            //this array converts the ASCII Array back into a character array after being shuffled
+            for (int i = 0; i < asciiValues.Length; i++)
+            {
+                asciiValue = asciiValues[i];
+                letter = (char) asciiValue;
+                originalLetters[i] = letter;
+            }
+            string sentence = new string(originalLetters);
+            
+            return sentence;
         }
     }
 }
