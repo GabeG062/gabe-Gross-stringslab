@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e355c5a-e4bc-417a-be45-cb10a1c6769c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StringsLab_Core5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StringsLab_Core5/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShiftCypher/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ShiftCypher/Program.cs" afterDir="false" />
-    </list>
+    <list default="true" id="6e355c5a-e4bc-417a-be45-cb10a1c6769c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,6 +103,7 @@
       <updated>1775600559490</updated>
       <workItem from="1775785343641" duration="6014000" />
       <workItem from="1775863929686" duration="8217000" />
+      <workItem from="1776028192035" duration="40000" />
     </task>
     <servers />
   </component>

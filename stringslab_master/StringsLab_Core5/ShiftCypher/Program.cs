@@ -15,25 +15,36 @@ namespace ShiftCypher
             int shift = rnd.Next(-10, 11);
             Console.WriteLine("Shift is " + shift);
             
-            string encodedWord = Coder(words, shift);
+            string encodedWord = SentenceCoder(words, shift);
             Console.WriteLine($"the encoded version of {input} with a shift of {shift} is {encodedWord}");
         }
 
-        static bool IsPunctuation(char c)
+        static string SentenceCoder(string[] words, int shift)
         {
-            return char.IsPunctuation(c);
+            string newWord = "";
+            string word = "";
+            string[] encodedSentence = new string[words.Length];
+            
+            for (int i = 0; i < words.Length; i++)
+            {
+                newWord = words[i];
+                word = Coder(newWord, shift);
+                encodedSentence[i] = word;
+            }
+            string result = string.Join(", ", encodedSentence);
+            return result;
         }
-        static string Coder(string[] words, int shift)
+        
+        static string Coder(string word, int shift)
         {
-            char[] originalLetters = new char[words.Length];
+            char[] originalLetters = [];
             char letter = ' ';
             int asciiValue = 0;
-            int[] asciiValues = new int[words.Length];
+            int[] asciiValues = [];
             
             
             //this combines the string into one singular block
-            string combinedSentence = string.Join("", words);
-            
+            string combinedSentence = string.Join("", word);
             originalLetters = combinedSentence.ToCharArray();
             asciiValues = new int[originalLetters.Length];
             
@@ -72,6 +83,10 @@ namespace ShiftCypher
                     {
                         asciiValues[i] -= 26;
                     }
+                }
+                else
+                {
+                    asciiValues[i] -= shift;
                 }
             }
             //this array converts the ASCII Array back into a character array after being shuffled
